@@ -1,0 +1,10 @@
+#!/Users/audreykemajou/Documents/ttt-image-finder/ttt-image-finder/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'pdb==0.1','console_scripts','pdb'
+__requires__ = 'pdb==0.1'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('pdb==0.1', 'console_scripts', 'pdb')()
+    )
