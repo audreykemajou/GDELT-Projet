@@ -49,8 +49,7 @@ class GDELT_Scrapper():
         res, _ = loop.run_until_complete(wait_coroutines)
         loop.close()
 
-        for result in res:
-            results = [result.result() for result in res]
+        results = [result.result() for result in res]
 
         article_list = self.parse_html(results)
 
@@ -70,6 +69,12 @@ class GDELT_Scrapper():
         for result in results:
             parser.parseStr(result)
 
+            article_tags = parser.getElementsByTagName('a')
+
+            articles = [{'url' : article_tag.getAttribute('href')} for article_tag in article_tags if article_tag.getAttribute('href').startswith('http')]
+            logger.info("parse_html.images : {}".format([i.get('url') for i in articles]))
+            article_list += articles
+            import pdb; pdb.set_trace()
             #parser la page pour récupérer les liens des articles
 
 

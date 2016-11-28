@@ -1,5 +1,4 @@
-from ttt.items import *
-from ttt.scrapper import *
+from gdelt.scrapper import *
 import argparse
 import logging
 
