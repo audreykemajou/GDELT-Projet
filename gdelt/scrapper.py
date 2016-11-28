@@ -4,6 +4,7 @@ import asyncio
 import re
 import json
 import AdvancedHTMLParser
+from .items import Article
 from operator import itemgetter
 import logging
 from concurrent import futures
@@ -25,19 +26,17 @@ class GDELT_Scrapper():
         results = set()
         logger.info('querying {}'.format(self.query))
         results = self.run_single(self.query,**kwargs)
-        logger.info('stopped gracefully - T. Elapsed: {}'.format(perf_counter()-counter))
         self.last_results = results.copy()
         return results
+
 
     def run_single(self,query=None,**kwargs):
         articles = self.fetch_articles_all(query)
 
         worker_results = set()
-        i=0
+
         for article in articles:
-            while i < request['limit']:
-                #worker_results.add()
-                i+=1
+            worker_results.add(Article(article.get('url'),query=query))
 
         return worker_results
 
@@ -74,7 +73,6 @@ class GDELT_Scrapper():
             articles = [{'url' : article_tag.getAttribute('href')} for article_tag in article_tags if article_tag.getAttribute('href').startswith('http')]
             logger.info("parse_html.images : {}".format([i.get('url') for i in articles]))
             article_list += articles
-            import pdb; pdb.set_trace()
             #parser la page pour récupérer les liens des articles
 
 

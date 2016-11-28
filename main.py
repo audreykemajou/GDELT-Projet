@@ -1,3 +1,4 @@
+from gdelt.items import *
 from gdelt.scrapper import *
 import argparse
 import logging
@@ -14,3 +15,4 @@ if __name__ == "__main__":
 
     scrapper_GDELT = GDELT_Scrapper(query = "war in Nigeria")
     GDELT_articles = scrapper_GDELT.run()
+    Article.download_all(GDELT_articles)
